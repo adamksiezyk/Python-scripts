@@ -14,29 +14,39 @@ for l in alphabet:
 def Code(s):
     global key
 
+    s.upper()
     sentence = s.split(" ")
 
     words = []
     for w in sentence:
         words.append(split(w))
 
-    code = []
+    Coded = []
     for w in words:
         codeword = ""
         for l in w:
-            codeword += (str(key[l][0]))
+            codeword += (str(key[l][random.randint(0, 2)]))
             codeword += " "
-        code.append(codeword)
+        Coded.append(codeword.strip())
 
-    return code
+    return Coded
 
 def Decode(s):
-    s[:] = [word.replace(" ", "") for word in s]
-    for word in s:
-        for letter in word:
-            #TODO decode letter by letter
+    global key
 
+    Decoded = ""
+    # s[:] = [word.replace(" ", "") for word in s]
+    for word in s:
+        for letter in word.split(" "):
+            letter = int(letter)
+            for name, value in key.items():
+                if letter in value:
+                    Decoded += name
+        Decoded += " "
+    return Decoded
 
 s = "PIERWSZA LABORKA Z BEZPIECZENSTWA JEST DZIS WIEC DZISIAJ LAMIEMY TAJNA WIADOMOSC"
 coded = Code(s)
+print(coded)
 decoded = Decode(coded)
+print(decoded)
